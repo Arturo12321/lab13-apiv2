@@ -31,7 +31,7 @@ namespace lab13_api.Controllers
             return await _context.Enrollments.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments2(string? FirstName, string? Name)
+        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments9(string? FirstName, string? Name)
         {
             if (_context.Enrollments == null)
             {
@@ -45,7 +45,10 @@ namespace lab13_api.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments3(string? Name, string? LastName)
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments10(string? Name)
         {
             if (_context.Enrollments == null)
             {
@@ -53,20 +56,20 @@ namespace lab13_api.Controllers
             }
             return await _context.Enrollments.Include(p => p.Student).Include(p => p.Course)
                 .Where(p => p.Course.Name.Contains(Name))
-                .OrderByDescending(p => p.Course.Name).OrderByDescending(p => p.Student.LastName)
+                .OrderBy(p => p.Course.Name).OrderBy(p => p.Student.LastName)
                 .ToListAsync();
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments4(string? FirstName, string? Name)
+        public async Task<ActionResult<IEnumerable<Enrollment>>> GetEnrollments11(string? Name)
         {
             if (_context.Enrollments == null)
             {
                 return NotFound();
             }
             return await _context.Enrollments.Include(p => p.Student).Include(p => p.Course)
-                .Where(p => p.Student.FirstName.Contains(FirstName) || p.Course.Name.Contains(Name))
-                .OrderByDescending(p => p.Course.Name)
+                .Where(p => p.Course.Name.Contains(Name))
+                .OrderBy(p => p.Course.Name).OrderBy(p => p.Student.LastName)
                 .ToListAsync();
         }
 
