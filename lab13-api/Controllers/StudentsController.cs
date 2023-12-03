@@ -76,7 +76,6 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
             return student;
         }
 
